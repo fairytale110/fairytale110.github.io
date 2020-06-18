@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.6 -->
+    <script>
+        window.materialVersion = "1.5.6"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0',
+            '1.5.2',
+            '1.5.5'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net/npm/hexo-material-cdn@1.5.2/source">
+
+
+
+
+
+
+
+
+
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            Android TensorFlow Lite 模型训练流程 | 
+        
+        智灵的博客
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" itemprop="description" content>
+    <meta name="keywords" content=",机器学习">
+    <meta name="theme-color" content="#C2185B">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","https://cdn.jsdelivr.net/npm/hexo-material-cdn@1.5.2/source/css/material.min.css",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","https://cdn.jsdelivr.net/npm/hexo-material-cdn@1.5.2/source/css/style.min.css",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #F06292;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #F8BBD0 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #F8BBD0 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #F8BBD0 !important;
+  }
+
+  .toTop {
+    background: #F06292 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #F06292;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #F06292;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #F06292;
+  }
+
+  .post-toc a:hover {
+    color: #F06292;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body {
+        background-color: ;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text {
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","https://cdn.jsdelivr.net/npm/hexo-material-cdn@1.5.2/source/css/material-icons.css",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","https://cdn.bootcss.com/jquery/2.2.0/jquery.js", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="智灵的博客">
+    <meta name="msapplication-starturl" content="http://nicesky.tech/2020/06/08/Android TensorFlow 模型训练流程/">
+    <meta name="msapplication-navbutton-color" content="#C2185B">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="智灵的博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://nicesky.tech/2020/06/08/Android TensorFlow 模型训练流程/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Android TensorFlow Lite 模型训练流程 | 智灵的博客">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content>
+    <meta property="og:article:tag" content="机器学习"> 
+
+    
+        <meta property="article:published_time" content="Mon Jun 08 2020 13:46:16 GMT+0800">
+        <meta property="article:modified_time" content="Tue Jun 16 2020 16:59:10 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://nicesky.tech/2020/06/08/Android TensorFlow 模型训练流程/index.html">
+    
+
+    <!-- Structured-data for SEO -->
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span id="MD-burger-id" class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#官方或本地移动模型教程："><span class="post-toc-number">1.</span> <span class="post-toc-text">官方或本地移动模型教程：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#config提示："><span class="post-toc-number">1.1.</span> <span class="post-toc-text">config提示：</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#模型本地测试"><span class="post-toc-number">2.</span> <span class="post-toc-text">模型本地测试</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#部署服务器"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">部署服务器</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#遇到过的问题"><span class="post-toc-number"></span> <span class="post-toc-text">遇到过的问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Cannot-copy-between-a-TensorFlowLite-tensor-with-shape-https-github-com-tensorflow-tensorflow-issues-29054"><span class="post-toc-number">1.</span> <span class="post-toc-text">[Cannot copy between a TensorFlowLite tensor with shape][https://github.com/tensorflow/tensorflow/issues/29054]</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#WARNING-tensorflow-Ignoring-ground-truth-with-image-id-558212937-since-it-was-previously-added"><span class="post-toc-number">2.</span> <span class="post-toc-text">WARNING:tensorflow:Ignoring ground truth with image id 558212937 since it was previously added</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Invalid-argument-ValueError-Category-stats-do-not-exist-Traceback-most-recent-call-last"><span class="post-toc-number">3.</span> <span class="post-toc-text">Invalid argument: ValueError: Category stats do not exist Traceback (most recent call last)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#AssertionError-Bad-argument-number-for-Name-3-expecting-4"><span class="post-toc-number">4.</span> <span class="post-toc-text">AssertionError: Bad argument number for Name: 3, expecting 4</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OOM-when-allocating-tensor-with-shape-20-32-300-300-and-type-float"><span class="post-toc-number">5.</span> <span class="post-toc-text">OOM when allocating tensor with shape[20,32,300,300] and type float</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Ignoring-detection-with-image-id-1471494072-since-it-was-previously-added"><span class="post-toc-number">6.</span> <span class="post-toc-text">Ignoring detection with image id 1471494072 since it was previously added</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#模型检测出来-出现重复的结果"><span class="post-toc-number">7.</span> <span class="post-toc-text">模型检测出来 出现重复的结果</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#“-dev-kvm-device-permission-denied”"><span class="post-toc-number">8.</span> <span class="post-toc-text">“/dev/kvm device: permission denied”</span></a></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        <!-- Custom Thumbnail -->
+        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(/img/daily_pic.png)">
+    
+            <p class="article-headline-p">
+                Android TensorFlow Lite 模型训练流程
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>智灵</strong>
+        <span>6月 08, 2020</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/机器学习/">机器学习</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android TensorFlow Lite 模型训练流程&url=http://nicesky.tech/2020/06/08/Android TensorFlow 模型训练流程/index.html&pic=http://nicesky.tech/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=智灵的博客&title=Android TensorFlow Lite 模型训练流程&summary=&pics=http://nicesky.tech/img/favicon.png&url=http://nicesky.tech/2020/06/08/Android TensorFlow 模型训练流程/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <blockquote>
+<p>参考文档：</p>
+<p>官方文档：</p>
+<p><a href="https://www.tensorflow.org/lite/examples" target="_blank" rel="noopener">https://www.tensorflow.org/lite/examples</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/80510273" target="_blank" rel="noopener">TensorFlow Object Detection API遇到的问题及解决</a></p>
+<p>// 自动标注</p>
+<p><a href="https://github.com/yuxitong/AutoMarKingTensorFlowPython" target="_blank" rel="noopener">https://github.com/yuxitong/AutoMarKingTensorFlowPython</a></p>
+</blockquote>
+<blockquote>
+<p>// TensorFlow android demo 车道线 车辆 人脸 动作 骨架 识别 检测 抽烟 打电话 闭眼 睁眼 ：       </p>
+<p><a href="https://github.com/yuxitong/TensorFlowAndroidDemo/issues?q=is%3Aissue+is%3Aclosed" target="_blank" rel="noopener">https://github.com/yuxitong/TensorFlowAndroidDemo/issues?q=is%3Aissue+is%3Aclosed</a></p>
+<p>// Deploying a TensorFlow model to Android （SO形式 有点年代）</p>
+<p><a href="https://medium.com/joytunes/deploying-a-tensorflow-model-to-android-69d04d1b0cba" target="_blank" rel="noopener">https://medium.com/joytunes/deploying-a-tensorflow-model-to-android-69d04d1b0cba</a></p>
+<p>// Android TensorFlow Machine Learning Example （SO形式）</p>
+<p><a href="https://blog.mindorks.com/android-tensorflow-machine-learning-example-ff0e9b2654cc" target="_blank" rel="noopener">https://blog.mindorks.com/android-tensorflow-machine-learning-example-ff0e9b2654cc</a></p>
+<p>// Training and serving a realtime mobile object detector in 30 minutes with Cloud TPUs （靠谱）</p>
+<p><a href="https://medium.com/tensorflow/training-and-serving-a-realtime-mobile-object-detector-in-30-minutes-with-cloud-tpus-b78971cf1193" target="_blank" rel="noopener">https://medium.com/tensorflow/training-and-serving-a-realtime-mobile-object-detector-in-30-minutes-with-cloud-tpus-b78971cf1193</a></p>
+</blockquote>
+<blockquote>
+<p>使用TensorFlow Lite将ssd_mobilenet移植至安卓客户端：靠谱</p>
+</blockquote>
+<blockquote>
+<p><a href="https://blog.csdn.net/qq_26535271/article/details/83031412" target="_blank" rel="noopener">https://blog.csdn.net/qq_26535271/article/details/83031412</a></p>
+<h4 id="官方或本地移动模型教程："><a href="#官方或本地移动模型教程：" class="headerlink" title="官方或本地移动模型教程："></a>官方或本地移动模型教程：</h4><p><code>https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/running_on_mobile_tensorflowlite.md</code></p>
+</blockquote>
+<blockquote>
+<p>模型测试 + 模型转换，靠谱：</p>
+</blockquote>
+<blockquote>
+<p><code>https://blog.csdn.net/weixin_43056275/article/details/105225089?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-6&amp;utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-6#31_config_32</code></p>
+</blockquote>
+<blockquote>
+<p><a href="https://blog.csdn.net/chenmaolin88/article/details/79357263" target="_blank" rel="noopener">https://blog.csdn.net/chenmaolin88/article/details/79357263</a></p>
+</blockquote>
+<blockquote>
+<p>模型转换参考：量化建议</p>
+<p><a href="https://www.jianshu.com/p/71de8a49efd4" target="_blank" rel="noopener">https://www.jianshu.com/p/71de8a49efd4</a></p>
+</blockquote>
+<blockquote>
+<p>量化例子，参考</p>
+<p><code>https://blog.csdn.net/angela_12/article/details/85000072?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1&amp;utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1</code></p>
+</blockquote>
+<blockquote>
+<p>ERR:</p>
+<p>OOM when allocating tensor of shape [3,3,432,1] and type float</p>
+<p>​     [[node gradients/zeros_144 (defined at /tensorflow/models/research/object_detection/model_lib.py:413) ]]</p>
+<p>代码中使用的<strong>batch_size</strong>是10，改小为5</p>
+<p><a href="https://github.com/tensorflow/models/issues/1993" target="_blank" rel="noopener">https://github.com/tensorflow/models/issues/1993</a></p>
+<p>ERROR:</p>
+<p>not a valid absolute pattern (absolute target patterns must start with exactly two slashes</p>
+<p>路径用绝对路径， output 和 input 路径用 单引号起来的绝对路径</p>
+</blockquote>
+<p>0、删除 ~/train_ssd_mobilenet/roadsign_data/PascalVOC/ImageSets 里的Main文件夹</p>
+<p>   删除 ~/train_ssd_mobilenet/roadsign_data/  tfrecords 文件夹</p>
+<p>方置 图片和xml标注文集到 ~/train_ssd_mobilenet/roadsign_data/PascalVOC 对应文件夹</p>
+<p>修改 :~/train_ssd_mobilenet/roadsign_data 下的 roadsign_label_map.pbtxt文集为自己的label</p>
+<blockquote>
+<p>修改配置文集，如果有必要，</p>
+<p>配置文集原始位置：<code>/home/ubuntu/tensorflow/models/research/object_detection/samples/configs/</code></p>
+<p>参考帖子：<code>https://blog.csdn.net/qq_26535271/article/details/84930868</code></p>
+</blockquote>
+<p>1、准备数据集、编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd ~/train_ssd_mobilenet</span><br><span class="line">//生成 ~/train_ssd_mobilenet/roadsign_data/PascalVOC/ImageSets  trainval.txt</span><br><span class="line">python3 build1_trainval.py </span><br><span class="line">// 生成  :~/train_ssd_mobilenet/roadsign_data/tfrecords</span><br><span class="line">python3 build2_tf_record.py</span><br></pre></td></tr></table></figure>
+
+<p>1.1 训练配置选择：</p>
+<p><a href="https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md" target="_blank" rel="noopener">https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md</a></p>
+<p>// TODO 制作数据集的时候忘了对数据打乱顺序。图片是按第0、1、顺序排放的，所以训练的时候是会出问题的，一定要shuffle数据集 <code>shuffle=true</code></p>
+<p>2、训练：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">python3 ~/tensorflow/models/research/object_detection/model_main.py --alsologtostderr --model_dir=resnet-042401 --pipeline_config_path=./ssd_mobilenet_v1_0.75_depth_quantized_300x300_coco14_sync_2018_07_18/pipeline.config </span><br><span class="line"></span><br><span class="line">// PC版 fast rcnn</span><br><span class="line">python3 ~/tensorflow/models/research/object_detection/model_main.py --alsologtostderr --model_dir=resnet-0530 --pipeline_config_path=./faster_rcnn_resnet101_coco.config</span><br><span class="line"></span><br><span class="line">// 换成tensorflow samples里面的config，目前正常</span><br><span class="line">python3 ~/tensorflow/models/research/object_detection/model_main.py --alsologtostderr --model_dir=resnet-0523 --pipeline_config_path=ssd_mobilenet_v2_quantized_300x300_coco.config \</span><br><span class="line">--num_train_steps=300000 --num_eval_steps=30</span><br><span class="line"></span><br><span class="line">// 可以不要</span><br><span class="line">--num_train_steps=100000        </span><br><span class="line"></span><br><span class="line">// 可以不要</span><br><span class="line">--num_eval_steps=20</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h5 id="config提示："><a href="#config提示：" class="headerlink" title="config提示："></a>config提示：</h5><p><code>eval_config</code>:</p>
+<p><code>num_examples</code>：想要验证的图片数量</p>
+<p><code>max_evals</code>：验证循环次数/home/ubuntu/GoogleAPI/models/research/object_detection</p>
+<p><code>metrics_set</code>：选择验证的方式，有以下几个选项（在research/object_detection/legacy/evaluator.py中）</p>
+<p>配置文件调参 参考：</p>
+<p><a href="https://www.sohu.com/a/238172351_100177858" target="_blank" rel="noopener">https://www.sohu.com/a/238172351_100177858</a>  </p>
+<p><a href="https://www.cnblogs.com/jwcz/p/11799507.html" target="_blank" rel="noopener">https://www.cnblogs.com/jwcz/p/11799507.html</a></p>
+<p><a href="https://github.com/tensorflow/models/blob/abd504235f3c2eed891571d62f0a424e54a2dabc/research/object_detection/protos/eval.proto#L8" target="_blank" rel="noopener">https://github.com/tensorflow/models/blob/abd504235f3c2eed891571d62f0a424e54a2dabc/research/object_detection/protos/eval.proto#L8</a></p>
+</blockquote>
+<blockquote>
+<p>查看进度 <code>tensorboard --logdir resnet-042401</code> </p>
+</blockquote>
+<p>3、导出模型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">python3 ~/tensorflow/models/research/object_detection/export_tflite_ssd_graph.py \</span><br><span class="line">--pipeline_config_path=./ssd_mobilenet_v2_quantized_300x300_coco.config \</span><br><span class="line">--trained_checkpoint_prefix=./resnet-0523/model.ckpt-500000 \</span><br><span class="line">--output_directory=./output-0523/tflite \</span><br><span class="line">--add_postprocessing_op=true \</span><br><span class="line">--max_detections=1000</span><br><span class="line"></span><br><span class="line">// max_detections 期望检测出来的物品最多多少个</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>PC 模型导出:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; python3 ~/tensorflow/models/research/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path=./faster_rcnn_resnet101_coco.config --trained_checkpoint_prefix ./resnet-0415/model.ckpt-104947  --output_directory .</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>4、转换成tflite模型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">bazel run -c opt tensorflow/lite/toco:toco -- \</span><br><span class="line">--input_file=&apos;/home/ubuntu/train_ssd_mobilenet/output-0523/tflite/tflite_graph.pb&apos; \</span><br><span class="line">--output_file=&apos;/home/ubuntu/train_ssd_mobilenet/output-0523/tflite/detect.tflite&apos; \</span><br><span class="line">--input_format=TENSORFLOW_GRAPHDEF --output_format=TFLITE \</span><br><span class="line">--input_shapes=1,900,900,3 \</span><br><span class="line">--input_arrays=normalized_input_image_tensor \</span><br><span class="line">--output_arrays=&apos;TFLite_Detection_PostProcess&apos;,&apos;TFLite_Detection_PostProcess:1&apos;,&apos;TFLite_Detection_PostProcess:2&apos;,&apos;TFLite_Detection_PostProcess:3&apos;  \</span><br><span class="line">--inference_type=QUANTIZED_UINT8 \</span><br><span class="line">--mean_values=128.0 \</span><br><span class="line">--std_values=128.0 \</span><br><span class="line">--change_concat_input_ranges=false \</span><br><span class="line">--allow_custom_ops</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; 这个参数不确定，未测试 :</span><br><span class="line">&gt; --default_ranges_min=0 --default_ranges_max=6</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="模型本地测试"><a href="#模型本地测试" class="headerlink" title="模型本地测试"></a>模型本地测试</h4><blockquote>
+<p>仅适用于fast 训练的模型?， mobilenet训练的模型pb报400)</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorflow_model_server --rest_api_port=9000  --model_name=aaa --model_base_path=/home/ubuntu/train_ssd_mobilenet/output-042401</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>rcnn_web中转服务,依赖包; pip3 python3.6 </p>
+<p>Keras (2.3.1)<br>Keras-Applications (1.0.8)<br>Keras-Preprocessing (1.1.0)</p>
+<p>Flask (1.1.2)</p>
+<p>否则无法运行</p>
+</blockquote>
+<h5 id="部署服务器"><a href="#部署服务器" class="headerlink" title="部署服务器"></a>部署服务器</h5><blockquote>
+<ul>
+<li><p>安装 pip3 install gunicorn</p>
+</li>
+<li><p><code>gunicorn [OPTIONS] 模块名：变量名</code></p>
+</li>
+</ul>
+<p><code>gunicorn -b 0.0.0.0:5000 -w 9 wsgi:app</code></p>
+<ul>
+<li><p>阿里云ECS ubuntu无法找到gunicorn，卸载后，安装gunicorn3</p>
+<p><code>gunicorn3 -b xxxx</code></p>
+</li>
+</ul>
+</blockquote>
+<p>5、修改官方demo文件：</p>
+<p>参考demo <a href="https://github.com/fairytale110/Camera2WithTFLite" target="_blank" rel="noopener">https://github.com/fairytale110/Camera2WithTFLite</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TFLiteObjectDetectionAPIModel.java</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"> // in label file and class labels start from 1 to number_of_classes+1,</span><br><span class="line">       // while outputClasses correspond to class index from 0 to number_of_classes</span><br><span class="line">       int labelOffset = 1;</span><br><span class="line">-      recognitions.add(</span><br><span class="line">-          new Recognition(</span><br><span class="line">-              &quot;&quot; + i,</span><br><span class="line">-              labels.get((int) outputClasses[0][i] + labelOffset),</span><br><span class="line">-              outputScores[0][i],</span><br><span class="line">-              detection));</span><br><span class="line">+        final int classLabel = (int) outputClasses[0][i] + labelOffset;</span><br><span class="line">+        if (inRange(classLabel, labels.size(), 0) &amp;&amp; inRange(outputScores[0][i], 1, 0)) &#123;</span><br><span class="line">+            recognitions.add(</span><br><span class="line">+                    new Recognition(</span><br><span class="line">+                            &quot;&quot; + i,</span><br><span class="line">+                            labels.get(classLabel),</span><br><span class="line">+                            outputScores[0][i],</span><br><span class="line">+                            detection));</span><br><span class="line">+        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     Trace.endSection(); // &quot;recognizeImage&quot;</span><br><span class="line">     return recognitions;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">+  private boolean inRange(float number, float max, float min) &#123;</span><br><span class="line">+    return number &lt; max &amp;&amp; number &gt;= min;</span><br><span class="line">+  &#125;</span><br><span class="line">+</span><br></pre></td></tr></table></figure>
+
+<h2 id="遇到过的问题"><a href="#遇到过的问题" class="headerlink" title="遇到过的问题"></a>遇到过的问题</h2><h4 id="Cannot-copy-between-a-TensorFlowLite-tensor-with-shape-https-github-com-tensorflow-tensorflow-issues-29054"><a href="#Cannot-copy-between-a-TensorFlowLite-tensor-with-shape-https-github-com-tensorflow-tensorflow-issues-29054" class="headerlink" title="[Cannot copy between a TensorFlowLite tensor with shape][https://github.com/tensorflow/tensorflow/issues/29054]"></a>[Cannot copy between a TensorFlowLite tensor with shape][<a href="https://github.com/tensorflow/tensorflow/issues/29054]" target="_blank" rel="noopener">https://github.com/tensorflow/tensorflow/issues/29054]</a></h4><p>解决方法：<a href="https://github.com/tensorflow/tensorflow/issues/22106" target="_blank" rel="noopener">https://github.com/tensorflow/tensorflow/issues/22106</a></p>
+<h4 id="WARNING-tensorflow-Ignoring-ground-truth-with-image-id-558212937-since-it-was-previously-added"><a href="#WARNING-tensorflow-Ignoring-ground-truth-with-image-id-558212937-since-it-was-previously-added" class="headerlink" title="WARNING:tensorflow:Ignoring ground truth with image id 558212937 since it was previously added"></a>WARNING:tensorflow:Ignoring ground truth with image id 558212937 since it was previously added</h4><p>解决办法：<br>把config文件eval_config部分的num_examples和训练代码的num_eval_steps都改为和测试集图片的数量一样或者更少就可以了（我的测试集图片有100张，我的两个地方都改成了100）</p>
+<p><img src="https://img-blog.csdnimg.cn/20200409222757516.png" alt="config文件的num_examples"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">config文件的num_examples</span><br><span class="line"></span><br><span class="line">python object_detection/model_main.py \</span><br><span class="line">    --pipeline_config_path=object_detection/training/ssd_mobilenet_v1_coco.config \</span><br><span class="line">    --model_dir=object_detection/training \</span><br><span class="line">    --num_train_steps=50000 \</span><br><span class="line">    --num_eval_steps=100 \</span><br><span class="line">    --alsologtostderr</span><br></pre></td></tr></table></figure>
+
+<p>原文链接：<a href="https://blog.csdn.net/weixin_46127907/java/article/details/105421607" target="_blank" rel="noopener">https://blog.csdn.net/weixin_46127907/java/article/details/105421607</a></p>
+<h4 id="Invalid-argument-ValueError-Category-stats-do-not-exist-Traceback-most-recent-call-last"><a href="#Invalid-argument-ValueError-Category-stats-do-not-exist-Traceback-most-recent-call-last" class="headerlink" title="Invalid argument: ValueError: Category stats do not exist Traceback (most recent call last)"></a>Invalid argument: ValueError: Category stats do not exist Traceback (most recent call last)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tensorflow.python.framework.errors_impl.OutOfRangeError: 2 root error(s) found.</span><br><span class="line">  (0) Out of range: End of sequence</span><br><span class="line">	 [[&#123;&#123;node IteratorGetNext&#125;&#125;]]</span><br><span class="line">  (1) Out of range: End of sequence</span><br><span class="line">	 [[&#123;&#123;node IteratorGetNext&#125;&#125;]]</span><br><span class="line">	 [[Postprocessor/BatchMultiClassNonMaxSuppression/MultiClassNonMaxSuppression/Shape_8/_4689]]</span><br></pre></td></tr></table></figure>
+
+<p>原因：未知</p>
+<p>解决方案：换为tensorflow带的同名config文件</p>
+<h4 id="AssertionError-Bad-argument-number-for-Name-3-expecting-4"><a href="#AssertionError-Bad-argument-number-for-Name-3-expecting-4" class="headerlink" title="AssertionError: Bad argument number for Name: 3, expecting 4"></a>AssertionError: Bad argument number for Name: 3, expecting 4</h4><p>原因：网上说的和gats版本有关？没官暂时</p>
+<h4 id="OOM-when-allocating-tensor-with-shape-20-32-300-300-and-type-float"><a href="#OOM-when-allocating-tensor-with-shape-20-32-300-300-and-type-float" class="headerlink" title="OOM when allocating tensor with shape[20,32,300,300] and type float"></a>OOM when allocating tensor with shape[20,32,300,300] and type float</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> Allocator (GPU_0_bfc) ran out of memory trying to allocate 2.41GiB with freed_by_count=0. The caller indicates that this is not a failure, but may mean that there could be performance gains if more memory were available.</span><br><span class="line">2020-04-25 11:56:55.277922: W tensorflow/core/common_runtime/bfc_allocator.cc:237]</span><br></pre></td></tr></table></figure>
+
+<p>解决方案：减小<code>batch_size</code></p>
+<h4 id="Ignoring-detection-with-image-id-1471494072-since-it-was-previously-added"><a href="#Ignoring-detection-with-image-id-1471494072-since-it-was-previously-added" class="headerlink" title="Ignoring detection with image id 1471494072 since it was previously added"></a>Ignoring detection with image id 1471494072 since it was previously added</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">W0425 14:46:33.695297 139864167134976 coco_evaluation.py:139] Ignoring detection with image id 1471494072 since it was previously added</span><br></pre></td></tr></table></figure>
+
+<h4 id="模型检测出来-出现重复的结果"><a href="#模型检测出来-出现重复的结果" class="headerlink" title="模型检测出来 出现重复的结果"></a>模型检测出来 出现重复的结果</h4><p>解析之后，一个物体会得到了多个定位的框，如何确定哪一个是我们需要的最准确的框呢？我们就要用到非极大值抑制，来抑制那些冗余的框：抑制的过程是一个迭代-遍历-消除的过程。</p>
+<p>1，将所有框的得分排序，选中最高分及其对应的框</p>
+<p>2，遍历其余的框，如果和当前最高分框的重叠面积(IOU)大于一定阈值，我们就将框删除。</p>
+<p>3，从未处理的框中继续选一个得分最高的，重复上述过程。</p>
+<h4 id="“-dev-kvm-device-permission-denied”"><a href="#“-dev-kvm-device-permission-denied”" class="headerlink" title="“/dev/kvm device: permission denied”"></a>“/dev/kvm device: permission denied”</h4><p>语法：chown [选项] 所有者 文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown 用户名 -R /dev/kvm</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>延伸资料:</p>
+<p><a href="https://www.chainnews.com/articles/051424062222.htm" target="_blank" rel="noopener">https://www.chainnews.com/articles/051424062222.htm</a></p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <!-- 使用 Gitalk -->
+<div id="gitalk-comment">
+    <!-- Gitalk 评论框 -->
+<div id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script>
+    var id = location.pathname;
+    if (Date.parse('Mon Jun 08 2020 13:46:16 GMT+0800') - Date.parse('2018-03-01') > 0 ||
+        'false' !== 'true') {
+        id = md5(location.pathname)
+    }
+    var gitalk = new Gitalk({
+        clientID: 'fbbc09874d00df75fefa',
+        clientSecret: '0ba91b841b2e2b0f40be83bb92339833ba21368e',
+        repo: 'fairytale110.github.io',
+        owner: 'fairytale110',
+        admin: ['fairytale110'],
+        id: id,
+        // facebook-like distraction free mode
+        distractionFreeMode: false
+    })
+    gitalk.render('gitalk-container')
+      
+ <!-- 
+  var gitalk = new Gitalk({
+          clientID: 'fbbc09874d00df75fefa',
+           clientSecret: '0ba91b841b2e2b0f40be83bb92339833ba21368e',
+           repo: 'fairytale110.github.io',
+            owner: 'fairytale110',
+           admin: ['fairytale110'],
+            // facebook-like distraction free mode
+            distractionFreeMode: false
+       })
+  gitalk.render('gitalk-container')
+-->
+</script>
+</div>
+<style>
+    #gitalk-comment {
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2020/06/06/Android_tips/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="智灵's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        fairytale110@qq.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto:fairytale110@qq.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/02/">二月 2020<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/11/">十一月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/06/">六月 2016<span class="sidebar_archives-count">2</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Android/">Android<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/Android/TensorFlow/">TensorFlow<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/">Linux<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/iOS/">iOS<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/杂记/">杂记<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于我">
+                
+                关于我
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/tags" title="标签云">
+                
+                标签云
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">8</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/fairytale110" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+
+    <!-- V2EX -->
+    
+
+    <!-- Segmentfault -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;<span year></span>&nbsp;智灵的博客
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","https://cdn.jsdelivr.net/npm/hexo-material-cdn@1.5.2/source/js/lazyload.min.js", true)</script>
+
+
+
+    <script>lsloader.load("js_js","https://cdn.jsdelivr.net/npm/hexo-material-cdn@1.5.2/source/js/js.min.js", true)</script>
+
+
+
+    <script>lsloader.load("np_js","https://cdn.jsdelivr.net/npm/hexo-material-cdn@1.5.2/source/js/nprogress.js", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#C2185B'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #C2185B, 0 0 15px #C2185B'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#C2185B',
+        'border-left-color': '#C2185B'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+   <!-- GitTalk -->
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+<script type="text/ls-javascript" id="Bing-Background-script">
+    queue.offer(function(){
+        $('body').attr('data-original', 'https://uploadbeta.com/api/pictures/random/?key=bing');
+    });
+</script>
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    var copyrightNow = new Date().getFullYear();
+    var textContent = document.querySelector('span[year]')
+
+    copyrightSince = 2018;
+    if (copyrightSince === copyrightNow||copyrightSince === 0000) {
+        textContent.textContent = copyrightNow
+    } else {
+        textContent.textContent = copyrightSince + ' - ' + copyrightNow
+    }
+
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.6 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
