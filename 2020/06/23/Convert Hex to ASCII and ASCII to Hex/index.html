@@ -48,7 +48,7 @@
     
     <title>
         
-            归档: 2020/6 | 
+            ASCII 和 Hex 互转 | 
         
         智灵的博客
     </title>
@@ -59,7 +59,7 @@
 
     <meta name="format-detection" content="telephone=no">
     <meta name="description" itemprop="description" content>
-    <meta name="keywords" content>
+    <meta name="keywords" content=",基础">
     <meta name="theme-color" content="#C2185B">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -220,7 +220,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="智灵的博客">
-    <meta name="msapplication-starturl" content="http://nicesky.tech/archives/2020/06/">
+    <meta name="msapplication-starturl" content="http://nicesky.tech/2020/06/23/Convert Hex to ASCII and ASCII to Hex/">
     <meta name="msapplication-navbutton-color" content="#C2185B">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="智灵的博客">
@@ -235,13 +235,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://nicesky.tech/archives/2020/06/">
+    <meta property="og:url" content="http://nicesky.tech/2020/06/23/Convert Hex to ASCII and ASCII to Hex/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2020/6 | 智灵的博客">
+    <meta property="og:title" content="ASCII 和 Hex 互转 | 智灵的博客">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content>
-    
+    <meta property="og:article:tag" content="基础"> 
 
+    
+        <meta property="article:published_time" content="Tue Jun 23 2020 08:01:00 GMT+0800">
+        <meta property="article:modified_time" content="Tue Jun 23 2020 07:54:15 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -249,7 +252,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://nicesky.tech/archives/2020/06/index.html">
+        <link rel="canonical" href="http://nicesky.tech/2020/06/23/Convert Hex to ASCII and ASCII to Hex/index.html">
     
 
     <!-- Structured-data for SEO -->
@@ -284,276 +287,275 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Convert-ASCII-to-Hex"><span class="post-toc-number">1.</span> <span class="post-toc-text">Convert ASCII to Hex</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ASCII-to-Hex-Example-Code"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">ASCII to Hex Example Code</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Convert-Hex-to-ASCII"><span class="post-toc-number">2.</span> <span class="post-toc-text">Convert Hex to ASCII</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Hex-to-ASCII-Example-Code"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">Hex to ASCII Example Code</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Complete-Example-for-Hex-to-ASCII-and-ASCII-to-Hex-Conversion"><span class="post-toc-number">3.</span> <span class="post-toc-text">Complete Example for Hex to ASCII and ASCII to Hex Conversion</span></a></li></ol>
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50 lazy" data-original="/img/daily_pic.png">
+        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(/img/daily_pic.png)">
+    
+            <p class="article-headline-p">
+                ASCII 和 Hex 互转
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>智灵</strong>
+        <span>6月 23, 2020</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
     
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2020/06/23/Convert Hex to ASCII and ASCII to Hex/">ASCII 和 Hex 互转</a></p>
-    </div>
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/基础/">基础</a>
+    </ul>
+    
 
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            Many times we do need to convert the string values ASCII from/to H...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2020/06/23/Convert Hex to ASCII and ASCII to Hex/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="智灵's avatar">
-            </div>
-            <div>
-                <strong>智灵</strong>
-                <span>6月 23, 2020</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/Java/">Java</a>
-              </span>
-            
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
 
-            
+    
 
-            
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=ASCII 和 Hex 互转&url=http://nicesky.tech/2020/06/23/Convert Hex to ASCII and ASCII to Hex/index.html&pic=http://nicesky.tech/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
 
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=智灵的博客&title=ASCII 和 Hex 互转&summary=&pics=http://nicesky.tech/img/favicon.png&url=http://nicesky.tech/2020/06/23/Convert Hex to ASCII and ASCII to Hex/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
 </div>
 
-            
-            
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>Many times we do need to convert the string values <strong>ASCII from/to Hex format</strong>. In this small, post I am giving you two small code snippets which you can utilize to convert a string from <strong>Hex to ASCII or ASCII to Hex</strong>, as you want.</p>
+<p>Overall conversion logic looks like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hex   --  Decimal  --  ASCII</span><br></pre></td></tr></table></figure>
+
+<h2 id="Convert-ASCII-to-Hex"><a href="#Convert-ASCII-to-Hex" class="headerlink" title="Convert ASCII to Hex"></a>Convert ASCII to Hex</h2><p>It is done in following steps:</p>
+<ol>
+<li>Convert String to char array</li>
+<li>Cast it to Integer</li>
+<li>Use Integer.toHexString() to convert it to Hex</li>
+</ol>
+<h4 id="ASCII-to-Hex-Example-Code"><a href="#ASCII-to-Hex-Example-Code" class="headerlink" title="ASCII to Hex Example Code"></a>ASCII to Hex Example Code</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private` `static` `String asciiToHex(String asciiValue)``&#123;``  ``char``[] chars = asciiValue.toCharArray();``  ``StringBuffer hex = ``new` `StringBuffer();``  ``for` `(``int` `i = ``0``; i &lt; chars.length; i++)``  ``&#123;``    ``hex.append(Integer.toHexString((``int``) chars[i]));``  ``&#125;``  ``return` `hex.toString();``&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Convert-Hex-to-ASCII"><a href="#Convert-Hex-to-ASCII" class="headerlink" title="Convert Hex to ASCII"></a>Convert Hex to ASCII</h2><p>It is done in following steps:</p>
+<ol>
+<li>Cut the Hex value in 2 chars groups</li>
+<li>Convert it to base 16 Integer using Integer.parseInt(hex, 16) and cast to char</li>
+<li>Append all chars in StringBuilder</li>
+</ol>
+<h4 id="Hex-to-ASCII-Example-Code"><a href="#Hex-to-ASCII-Example-Code" class="headerlink" title="Hex to ASCII Example Code"></a>Hex to ASCII Example Code</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private` `static` `String hexToASCII(String hexValue)``&#123;``  ``StringBuilder output = ``new` `StringBuilder(``&quot;&quot;``);``  ``for` `(``int` `i = ``0``; i &lt; hexValue.length(); i += ``2``)``  ``&#123;``    ``String str = hexValue.substring(i, i + ``2``);``    ``output.append((``char``) Integer.parseInt(str, ``16``));``  ``&#125;``  ``return` `output.toString();``&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Now let’s test above methods with sample input data.</p>
+<h2 id="Complete-Example-for-Hex-to-ASCII-and-ASCII-to-Hex-Conversion"><a href="#Complete-Example-for-Hex-to-ASCII-and-ASCII-to-Hex-Conversion" class="headerlink" title="Complete Example for Hex to ASCII and ASCII to Hex Conversion"></a>Complete Example for Hex to ASCII and ASCII to Hex Conversion</h2><p>In this example, I am converting a string “//howtodoinjava.com” to first in hex format, and then convert that hex string to again in ASCII value. This converted ASCII value should be equal to original string i.e. “//howtodoinjava.com”.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HexAsciiConversionExamples</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">      String demoString = <span class="string">"//howtodoinjava.com"</span>;</span><br><span class="line">      <span class="comment">//Original String</span></span><br><span class="line">      System.out.println(<span class="string">"Original String: "</span>+ demoString);</span><br><span class="line">       </span><br><span class="line">      String hexEquivalent = asciiToHex(demoString);</span><br><span class="line">      <span class="comment">//Hex value of original String</span></span><br><span class="line">      System.out.println(<span class="string">"Hex String: "</span>+ hexEquivalent);</span><br><span class="line">       </span><br><span class="line">      String asciiEquivalent = hexToASCII(hexEquivalent);</span><br><span class="line">      <span class="comment">//ASCII value obtained from Hex value</span></span><br><span class="line">      System.out.println(<span class="string">"Ascii String: "</span>+ asciiEquivalent);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">asciiToHex</span><span class="params">(String asciiValue)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">      <span class="keyword">char</span>[] chars = asciiValue.toCharArray();</span><br><span class="line">      StringBuffer hex = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; chars.length; i++)</span><br><span class="line">      &#123;</span><br><span class="line">         hex.append(Integer.toHexString((<span class="keyword">int</span>) chars[i]));</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> hex.toString();</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">hexToASCII</span><span class="params">(String hexValue)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">      StringBuilder output = <span class="keyword">new</span> StringBuilder(<span class="string">""</span>);</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; hexValue.length(); i += <span class="number">2</span>)</span><br><span class="line">      &#123;</span><br><span class="line">         String str = hexValue.substring(i, i + <span class="number">2</span>);</span><br><span class="line">         output.append((<span class="keyword">char</span>) Integer.parseInt(str, <span class="number">16</span>));</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> output.toString();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Output:</strong></p>
+<blockquote>
+<p>Original String: //howtodoinjava.com<br>Hex String: 687474703a2f2f686f77746f646f696e6a6176612e636f6d<br>Ascii String: //howtodoinjava.com</p>
+</blockquote>
+<p><strong>Happy Learning !!</strong></p>
+<p>Reprinted <a href="https://howtodoinjava.com/java/convert-hex-to-ascii-and-ascii-to-hex/" target="_blank" rel="noopener">here</a></p>
+
         
     
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
     
-        <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50 lazy" data-original="/img/daily_pic.png">
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2020/06/08/Android TensorFlow 模型训练流程/">Android TensorFlow Lite 模型训练流程</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-参考文档：
-官方文档：
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2020/06/08/Android TensorFlow 模型训练流程/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="智灵's avatar">
-            </div>
-            <div>
-                <strong>智灵</strong>
-                <span>6月 08, 2020</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/Android/">Android</a>, <a class="post_category-link" href="/categories/Android/TensorFlow/">TensorFlow</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
 </div>
 
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50 lazy" data-original="/img/daily_pic.png">
-    
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2020/06/06/Android_tips/">Android常用技巧</a></p>
-    </div>
+                
 
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2020/06/06/Android_tips/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="智灵's avatar">
-            </div>
-            <div>
-                <strong>智灵</strong>
-                <span>6月 06, 2020</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/Android/">Android</a>
-              </span>
-            
+                <!-- Post Comments -->
+                
+                    
+    <!-- 使用 Gitalk -->
+<div id="gitalk-comment">
+    <!-- Gitalk 评论框 -->
+<div id="gitalk-container"></div>
 
-            
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
 
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50 lazy" data-original="/img/daily_pic.png">
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2020/06/06/Linux_usage_notes/">Linux使用技巧记录</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            ap...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2020/06/06/Linux_usage_notes/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="智灵's avatar">
-            </div>
-            <div>
-                <strong>智灵</strong>
-                <span>6月 06, 2020</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/Linux/">Linux</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 9; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
-    $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script>
+    var id = location.pathname;
+    if (Date.parse('Tue Jun 23 2020 08:01:00 GMT+0800') - Date.parse('2018-03-01') > 0 ||
+        'false' !== 'true') {
+        id = md5(location.pathname)
     }
+    var gitalk = new Gitalk({
+        clientID: 'fbbc09874d00df75fefa',
+        clientSecret: '0ba91b841b2e2b0f40be83bb92339833ba21368e',
+        repo: 'fairytale110.github.io',
+        owner: 'fairytale110',
+        admin: ['fairytale110'],
+        id: id,
+        // facebook-like distraction free mode
+        distractionFreeMode: false
+    })
+    gitalk.render('gitalk-container')
+      
+ <!-- 
+  var gitalk = new Gitalk({
+          clientID: 'fbbc09874d00df75fefa',
+           clientSecret: '0ba91b841b2e2b0f40be83bb92339833ba21368e',
+           repo: 'fairytale110.github.io',
+            owner: 'fairytale110',
+           admin: ['fairytale110'],
+            // facebook-like distraction free mode
+            distractionFreeMode: false
+       })
+  gitalk.render('gitalk-container')
+-->
 </script>
-
-    
 </div>
+<style>
+    #gitalk-comment {
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2020/06/08/Android TensorFlow 模型训练流程/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
